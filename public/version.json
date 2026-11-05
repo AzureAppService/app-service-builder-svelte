@@ -1,0 +1,5 @@
+{
+  "app": "app-service-builder-svelte",
+  "version": "1.0.0",
+  "framework": "Svelte 5 with Vite 8"
+}
