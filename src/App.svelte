@@ -1,4 +1,5 @@
 <script>
+  import { checkHealth } from './health'
   const appInfo = {
     app: 'app-service-builder-svelte',
     version: '1.0.0',
@@ -8,6 +9,20 @@
   }
 
   let count = $state(0)
+  let checking = $state(false)
+  let health = $state('Check the static health file without leaving this page.')
+
+  async function refreshHealth() {
+    checking = true
+    health = 'Checking /health.json…'
+    try {
+      health = await checkHealth()
+    } catch {
+      health = 'Static health check failed. Retry, or inspect /health.json and your static host configuration.'
+    } finally {
+      checking = false
+    }
+  }
   let currentPath = $state(normalizePath(window.location.pathname))
 
   /** @param {string} path */
@@ -44,10 +59,19 @@
 <svelte:window onpopstate={syncPath} />
 
 {#if currentPath === '/'}
-  <main>
+  <main class="sample-sheet">
+    <header class="sample-header">
+      <a class="sample-brand" href="/"><img src="/brand/builder.svg" alt="" width="32" height="32" />App Service Builder</a>
+      <nav aria-label="Documentation">
+        <a href="https://svelte.dev/docs">Svelte documentation</a>
+        <a href="https://builder.appservice.azure.com/docs/">App Service Builder documentation</a>
+      </nav>
+    </header>
+    <div class="sample-content">
+    <div class="ecosystem-logo"><img src="/brand/svelte.svg" alt="" width="52" height="52" /><span>Svelte</span></div>
     <p class="eyebrow">App Service Builder / Svelte</p>
     <h1>Svelte Vite SPA is running</h1>
-    <p>This page was rendered by Svelte from a production Vite static bundle.</p>
+    <p>This sample renders in your browser with Svelte and Vite.</p>
 
     <nav aria-label="Test routes">
       <a
@@ -57,9 +81,12 @@
       >
         Open the deep route
       </a>
-      <a href="/health.json">View static health</a>
-      <a href="/version.json">View version metadata</a>
+      <button class="secondary" type="button" disabled={checking} onclick={refreshHealth}>
+        {checking ? 'Checking health…' : 'Check static health'}
+      </button>
+      <a href="/version.json">View version JSON</a>
     </nav>
+    <p class="health-result" role="status">{health}</p>
 
     <button class="button" type="button" onclick={() => count += 1}>
       Interaction count: {count}
@@ -74,6 +101,18 @@
         <div><dt>Build setting</dt><dd>{appInfo.buildMarker}</dd></div>
       </dl>
     </section>
+    <details>
+      <summary>Customize this sample</summary>
+      <p>In your fork, edit the home page in <code>src/App.svelte</code> and the styles in
+        <code> public/brand/family.v1.css</code>. Commit your changes and deploy your fork through your Builder App.</p>
+    </details>
+    <details>
+      <summary>Logo sources &amp; notices</summary>
+      <p>Unmodified <a href="https://svelte.dev/">Svelte artwork</a> identifies this framework.
+        Svelte is a trademark of its respective owner. App Service Builder uses its supplied
+        official mark. No endorsement implied.</p>
+    </details>
+    </div>
   </main>
 {:else if currentPath === '/products/widget-1'}
   <main>

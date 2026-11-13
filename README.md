@@ -1,7 +1,7 @@
 # App Service Builder: Svelte sample
 
 A standalone Svelte single-page application built with Vite for
-[Azure App Service Builder](https://builderapps.azure.com/docs/). It uses
+[Azure App Service Builder](https://builder.appservice.azure.com/docs/). It uses
 Svelte 5 runes and the browser History API, without SvelteKit or a routing
 library. The deployment consists only of static HTML, JavaScript, CSS, and
 JSON. There is no backend, database, external service, or hosted Vite
@@ -13,6 +13,31 @@ was successfully deployed with the included manifest and its tested links
 worked. The renamed repository must still be deployed and verified in your
 authorized preview environment. Local checks do not establish cloud deployment
 success or regional availability.
+
+## Sample preview
+
+![Svelte root page with deep-route navigation, an interactive counter, inline static health feedback, and customization help](docs/images/sample.png)
+
+**LOCAL — Microsoft Edge, 1440px desktop, root `/`, production static build.**
+This screenshot is not evidence of an Azure deployment.
+
+The warm Svelte composition keeps its rune counter, browser History API routes,
+and inline static-file health check. Edit `src/App.svelte` for content and
+`public/brand/family.v1.css` for the visual family; baseline styles remain in
+`src/app.css`.
+
+### Logo provenance
+
+`public/brand/builder.svg` is the supplied official App Service Builder mark.
+`public/brand/svelte.svg` is the unmodified [official Svelte SVG](https://svelte.dev/svelte-logo.svg)
+from [svelte.dev](https://svelte.dev/). Svelte is a trademark of its respective
+owner. Logos identify the stack; no endorsement is implied.
+
+**Check static health** reads `/health.json` and displays the result in place,
+including failures and retry guidance. A reachable static file is not a backend
+health probe or Azure deployment status. **Customize this sample** explains which
+files to edit in your fork; it does not guess your repository or app URL.
+Framework and App Service Builder documentation are labeled separately.
 
 ## Features
 
@@ -34,8 +59,8 @@ success or regional availability.
 - Optional: [PowerShell 7](https://learn.microsoft.com/powershell/scripting/install/installing-powershell)
   for the endpoint verification script.
 
-The lockfile contains Svelte **5.57.1**, Vite **8.3.1**, the Svelte Vite plugin
-**7.3.1**, and svelte-check **4.7.6**. Keep `package-lock.json` and use `npm ci`
+The lockfile contains Svelte **5.57.3**, Vite **8.3.5**, the Svelte Vite plugin
+**7.3.1**, and svelte-check **4.7.8**. Keep `package-lock.json` and use `npm ci`
 to install the locked versions rather than updating dependencies during setup.
 
 ## Run locally
@@ -139,7 +164,7 @@ directory.
 
 ## Deploy your fork through Builder Portal
 
-Follow the [Portal quickstart](https://builderapps.azure.com/docs/quickstarts/portal/)
+Follow the [Portal quickstart](https://builder.appservice.azure.com/docs/quickstarts/portal/)
 for your authorized Private Preview environment:
 
 1. Commit and push the sample to the `main` branch of your GitHub repository.
@@ -180,7 +205,7 @@ not update existing assets.
 For a deployed app, configure the labels in Portal **Variables**, then deploy
 to rebuild the static output. Saving variables alone does not establish that
 the current bundle changed. See the
-[variables guide](https://builderapps.azure.com/docs/guides/variables/).
+[variables guide](https://builder.appservice.azure.com/docs/guides/variables/).
 
 ### Update and redeploy
 
@@ -197,9 +222,9 @@ Deleting the app does not delete your GitHub repository or local clone.
 
 ## Resources and contributions
 
-- [App Service Builder documentation](https://builderapps.azure.com/docs/)
-- [Sample catalog](https://builderapps.azure.com/docs/samples/)
-- [Manifest guide](https://builderapps.azure.com/docs/guides/builder-yaml/)
+- [App Service Builder documentation](https://builder.appservice.azure.com/docs/)
+- [Sample catalog](https://builder.appservice.azure.com/docs/samples/)
+- [Manifest guide](https://builder.appservice.azure.com/docs/guides/builder-yaml/)
 - [Contributing](CONTRIBUTING.md)
 - [Code of Conduct](.github/CODE_OF_CONDUCT.md)
 - [Security reporting](SECURITY.md)
