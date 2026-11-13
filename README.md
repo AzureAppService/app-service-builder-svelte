@@ -14,6 +14,19 @@ worked. The renamed repository must still be deployed and verified in your
 authorized preview environment. Local checks do not establish cloud deployment
 success or regional availability.
 
+## Sample preview
+
+![Svelte root page with deep-route navigation, an interactive counter, inline static health feedback, and customization help](docs/images/sample.png)
+
+Rendered locally at `/` from the production build with sample settings. This
+screenshot is not evidence of an Azure deployment.
+
+**Check static health** reads `/health.json` and displays the result in place,
+including failures and retry guidance. A reachable static file is not a backend
+health probe or Azure deployment status. **Customize this sample** explains which
+files to edit in your fork; it does not guess your repository or app URL.
+Framework and App Service Builder documentation are labeled separately.
+
 ## Features
 
 - Svelte landing page with an interactive counter.
@@ -34,8 +47,8 @@ success or regional availability.
 - Optional: [PowerShell 7](https://learn.microsoft.com/powershell/scripting/install/installing-powershell)
   for the endpoint verification script.
 
-The lockfile contains Svelte **5.57.1**, Vite **8.3.1**, the Svelte Vite plugin
-**7.3.1**, and svelte-check **4.7.6**. Keep `package-lock.json` and use `npm ci`
+The lockfile contains Svelte **5.57.3**, Vite **8.3.5**, the Svelte Vite plugin
+**7.3.1**, and svelte-check **4.7.8**. Keep `package-lock.json` and use `npm ci`
 to install the locked versions rather than updating dependencies during setup.
 
 ## Run locally

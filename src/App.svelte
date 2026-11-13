@@ -1,4 +1,5 @@
 <script>
+  import { checkHealth } from './health'
   const appInfo = {
     app: 'app-service-builder-svelte',
     version: '1.0.0',
@@ -8,6 +9,20 @@
   }
 
   let count = $state(0)
+  let checking = $state(false)
+  let health = $state('Check the static health file without leaving this page.')
+
+  async function refreshHealth() {
+    checking = true
+    health = 'Checking /health.json…'
+    try {
+      health = await checkHealth()
+    } catch {
+      health = 'Static health check failed. Retry, or inspect /health.json and your static host configuration.'
+    } finally {
+      checking = false
+    }
+  }
   let currentPath = $state(normalizePath(window.location.pathname))
 
   /** @param {string} path */
@@ -47,7 +62,7 @@
   <main>
     <p class="eyebrow">App Service Builder / Svelte</p>
     <h1>Svelte Vite SPA is running</h1>
-    <p>This page was rendered by Svelte from a production Vite static bundle.</p>
+    <p>This sample renders in your browser with Svelte and Vite.</p>
 
     <nav aria-label="Test routes">
       <a
@@ -57,9 +72,12 @@
       >
         Open the deep route
       </a>
-      <a href="/health.json">View static health</a>
-      <a href="/version.json">View version metadata</a>
+      <button class="secondary" type="button" disabled={checking} onclick={refreshHealth}>
+        {checking ? 'Checking health…' : 'Check static health'}
+      </button>
+      <a href="/version.json">View version JSON</a>
     </nav>
+    <p class="health-result" role="status">{health}</p>
 
     <button class="button" type="button" onclick={() => count += 1}>
       Interaction count: {count}
@@ -74,6 +92,15 @@
         <div><dt>Build setting</dt><dd>{appInfo.buildMarker}</dd></div>
       </dl>
     </section>
+    <details>
+      <summary>Customize this sample</summary>
+      <p>In your fork, edit the home page in <code>src/App.svelte</code> and the styles in
+        <code> src/app.css</code>. Commit your changes and deploy your fork through your Builder App.</p>
+    </details>
+    <nav class="documentation" aria-label="Documentation">
+      <a href="https://svelte.dev/docs">Framework documentation</a>
+      <a href="https://builderapps.azure.com/docs/">App Service Builder documentation</a>
+    </nav>
   </main>
 {:else if currentPath === '/products/widget-1'}
   <main>
