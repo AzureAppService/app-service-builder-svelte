@@ -18,8 +18,20 @@ success or regional availability.
 
 ![Svelte root page with deep-route navigation, an interactive counter, inline static health feedback, and customization help](docs/images/sample.png)
 
-Rendered locally at `/` from the production build with sample settings. This
-screenshot is not evidence of an Azure deployment.
+**LOCAL — Microsoft Edge, 1440px desktop, root `/`, production static build.**
+This screenshot is not evidence of an Azure deployment.
+
+The warm Svelte composition keeps its rune counter, browser History API routes,
+and inline static-file health check. Edit `src/App.svelte` for content and
+`public/brand/family.v1.css` for the visual family; baseline styles remain in
+`src/app.css`.
+
+### Logo provenance
+
+`public/brand/builder.svg` is the supplied official App Service Builder mark.
+`public/brand/svelte.svg` is the unmodified [official Svelte SVG](https://svelte.dev/svelte-logo.svg)
+from [svelte.dev](https://svelte.dev/). Svelte is a trademark of its respective
+owner. Logos identify the stack; no endorsement is implied.
 
 **Check static health** reads `/health.json` and displays the result in place,
 including failures and retry guidance. A reachable static file is not a backend
